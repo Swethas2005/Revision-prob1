@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Superhero Cards App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      height: 170vh;
+      position: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      position: relative;
+      color: white;
+      scroll-behavior: smooth;
+    }
+
+    .superheroes-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .superhero-row {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .superhero-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 10px;
+      width: 300px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    }
+
+    .is-bachelor-true {
+      color: red;
+    }
+
+    .is-bachelor-false {
+      color: green;
+    }
+
+    .superhero-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    h3 {
+      font-size: 30px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+
+    /* Large screens */
+@media all and (min-width: 955px) and (max-width: 1179px) {
+
+  .superhero-card {
+    width: 400px; 
+  }
+}
+
+/* Laptop screens */
+@media all and (min-width: 780px) and (max-width: 954px) {
+
+  .superhero-card {
+    width: 350px; 
+  }
+}
+
+/* Medium screens */
+@media all and (min-width: 690px) and (max-width: 779px) {
+  
+  .superhero-card {
+    width: 300px; 
+  }
+}
+
+/* Mini medium screens */
+@media all and (min-width: 564px) and (max-width: 689px) {
+  
+  .superhero-card {
+    width: 250px; 
+  }
+}
+
+/* Small screens */
+@media all and (min-width: 450px) and (max-width: 564px) {
+ 
+  .superhero-card {
+    width: 200px; 
+  }
+}
+  </style>
+</head>
+
+<body>
+  <div id="root" class="superheroes-container"></div>
+  <script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const superheroes = [
+      {
+        name: "Aquaman",
+        powers: ["intelligence", "magic", "speed"],
+        address: {
+          street: "Central St",
+          city: "Atlantis",
+          country: "American",
+        },
+        age: 32,
+        isBachelor: false,
+        imageUrl: "https://www.themarysue.com/wp-content/uploads/2018/08/aquaman-poster-e1537799094924.jpeg?resize=1200%2C661",
+      },
+      {
+        name: "Hulk",
+        powers: ["Regeneration", "stamina", "Shockwave generation"],
+        address: {
+          street: "Central St",
+          city: "Dayton",
+          country: "USA",
+        },
+        age: 52,
+        isBachelor: true,
+        imageUrl: "https://images.hdqwalls.com/wallpapers/ready-for-hulk-smash-5u.jpg",
+      },
+      {
+        name: "Batman",
+        powers: ["Rich", "Fly", "Genius"],
+        address: {
+          street: "Gotham St",
+          city: "Gotham",
+          country: "USA",
+        },
+        age: 21,
+        isBachelor: true,
+        imageUrl:
+          "https://w.forfun.com/fetch/b2/b2f94465453118be514a030623388d08.jpeg"
+      },
+      {
+        name: "Superman",
+        powers: ["Laser Fry", "Fly", "Runs Fast"],
+        address: {
+          street: "Central St",
+          city: "New York",
+          country: "USA",
+        },
+        age: 41,
+        isBachelor: false,
+        imageUrl:
+          "https://img.wattpad.com/9c1e26f7c825fe7bfcec08affde09c64db17e80e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f42584638457763614e2d54512d413d3d2d313333313237353739382e313735353162326265316439373834653331373330303632333631382e6a7067?s=fit&w=1280&h=1280"
+      },
+    ];
+
+    function SuperheroCard({ superhero }) {
+      return (
+        <div className={`superhero-card ${superhero.isBachelor ? 'is-bachelor-true' : 'is-bachelor-false'}`}>
+          <img className="superhero-image" src={superhero.imageUrl} alt={superhero.name} />
+          <h3>{superhero.name}</h3>
+          <p>Age: {superhero.age}</p>
+          <p>Powers: {superhero.powers.join(', ')}</p>
+          <p>Address: {superhero.address.city}, {superhero.address.country}</p>
+          <p>Is Bachelor: {superhero.isBachelor.toString()}</p>
+        </div>
+      );
+    }
+
+    function App() {
+      return (
+        <div>
+          <div className="superhero-row">
+            {superheroes.slice(0, 2).map((superhero, index) => (
+              <SuperheroCard key={index} superhero={superhero} />
+            ))}
+          </div>
+          <div className="superhero-row">
+            {superheroes.slice(2).map((superhero, index) => (
+              <SuperheroCard key={index} superhero={superhero} />
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
